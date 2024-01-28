@@ -40,13 +40,13 @@ let points = null
 
 
 let position = {
-    x: Math.random(), 
-    y: Math.random()*10+2.5, 
-    z: Math.random() 
+    x: Math.random(),
+    y: Math.random() * 10 + 2.5,
+    z: Math.random()
 }
 
-parameters.generateGalaxy = () =>{
-    
+parameters.generateGalaxy = () => {
+
 
     /* generateGalaxy({x: 50, y: 20, z: 56}) */
 
@@ -56,11 +56,9 @@ parameters.generateGalaxy = () =>{
 
 }
 
-const generateGalaxy = (position) =>
-{
-    
-    if(points != null) 
-    {
+const generateGalaxy = (position) => {
+
+    if (points != null) {
         geometry.dispose()
         material.dispose()
         scene.remove(points)
@@ -74,8 +72,7 @@ const generateGalaxy = (position) =>
     const colors = new Float32Array(parameters.count * 3)
 
 
-    for(let i = 0; i < parameters.count; i++)
-    {
+    for (let i = 0; i < parameters.count; i++) {
         const i3 = i * 3
 
         const radius = Math.random() * parameters.radius
@@ -85,21 +82,21 @@ const generateGalaxy = (position) =>
         const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * parameters.randomness * radius
         const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * parameters.randomness * radius
         const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * parameters.randomness * radius
-        
+
         const colourInside = new THREE.Color(parameters.insideColour)
         const colourOutside = new THREE.Color(parameters.outsideColour)
 
         const mixedColour = colourInside.clone()
-        mixedColour.lerp(colourOutside, radius / parameters.radius) 
+        mixedColour.lerp(colourOutside, radius / parameters.radius)
 
-        positions[i3    ] = (radius * Math.cos(branchAngle + parameters.warp0 * spinAngle) + randomX)
+        positions[i3] = (radius * Math.cos(branchAngle + parameters.warp0 * spinAngle) + randomX)
         positions[i3 + 1] = randomY
         positions[i3 + 2] = radius * Math.sin(branchAngle + parameters.warp2 * spinAngle) + randomZ
-        
-        colors[i3   ] =  mixedColour.r
+
+        colors[i3] = mixedColour.r
         colors[i3 + 1] = mixedColour.g
         colors[i3 + 2] = mixedColour.b
-        
+
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
@@ -114,9 +111,9 @@ const generateGalaxy = (position) =>
         sizeAttenuation: true,
         depthWrite: false,
         blending: THREE.AdditiveBlending,
-        vertexColors: true     
-        
-    }) 
+        vertexColors: true
+
+    })
 
 
     material.map = particleTexture
@@ -162,8 +159,7 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () =>
-{
+window.addEventListener('resize', () => {
     // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
@@ -205,8 +201,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const clock = new THREE.Clock()
 
-const tick = () =>
-{
+const tick = () => {
     const elapsedTime = clock.getElapsedTime()
 
     // Update controls
